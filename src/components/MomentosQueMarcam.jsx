@@ -7,7 +7,8 @@ function ImageCard({ src, alt = "", className = "", onClick }) {
   return (
     <div
       onClick={() => onClick(src)}
-      className={`relative flex items-center justify-center bg-white/60 rounded-xl overflow-hidden cursor-pointer ${className}`}
+      // Adicionei p-2 para dar um pequeno respiro, mas permitir que a foto ocupe quase tudo
+      className={`relative flex items-center justify-center bg-white/60 rounded-xl overflow-hidden cursor-pointer p-2 ${className}`}
     >
       {!loaded && (
         <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-xl" />
@@ -18,9 +19,15 @@ function ImageCard({ src, alt = "", className = "", onClick }) {
         alt={alt}
         loading="lazy"
         onLoad={() => setLoaded(true)}
-        className={`object-contain bg-white border-4 border-white rounded-lg shadow-md p-1 max-w-[75%] max-h-[95%] hover:scale-110 transition ${
+        // MUDANÇAS AQUI:
+        // 1. 'object-contain': Mantém a proporção (vertical/horizontal) = Essência de tamanhos diferentes.
+        // 2. 'max-w-full max-h-full': Permite crescer até o limite do quadrado (antes era travado em 75%).
+        // 3. Mantivemos borda e sombra para parecer "foto impressa".
+        className={`object-contain max-w-full max-h-full bg-white border-4 border-white rounded-lg shadow-md transition hover:scale-110 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
+        
+        // Mantém a rotação aleatória para dar o efeito de "fotos espalhadas"
         initial={{
           opacity: 0,
           y: 10,
@@ -57,14 +64,14 @@ function MomentosQueMarcam() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 md:px-24 auto-rows-[300px] md:auto-rows-[350px]">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 md:px-24 auto-rows-[250px] md:auto-rows-[350px]">
         {images.map((url, i) => (
           <ImageCard key={i} src={url} alt="" onClick={setSelected} />
         ))}
       </div>
 
       <div className="flex justify-center mt-16">
-        <button className="bg-[#4131e9] text-white text-lg font-bold uppercase rounded-full shadow-md px-6 py-3 hover:scale-105 transition hover:bg-[#3529c5]">
+        <button className="bg-[#4131e9] text-white text-lg font-bold uppercase rounded-full shadow-md px-6 py-3 hover:scale-105 transition hover:bg-[#3529c5] cursor-pointer">
           Ver Galeria Completa
         </button>
       </div>
@@ -92,7 +99,7 @@ function MomentosQueMarcam() {
 
             <button
               onClick={() => setSelected(null)}
-              className="absolute top-6 right-6 bg-white p-2 rounded-full shadow-lg hover:scale-110 transition"
+              className="absolute top-6 right-6 bg-white p-2 rounded-full shadow-lg hover:scale-110 transition cursor-pointer"
             >
               ✕
             </button>

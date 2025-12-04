@@ -3,36 +3,35 @@ import logo_panambi from "../assets/logo_panambi.webp"
 
 function Patrocionios() {
   return (
-    <section className="w-full">
-      <div>
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 font-RobotoSlab text-center px-10 pt-10 pb-14">
+    <section className="w-full py-12 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 font-RobotoSlab text-center mb-4">
           Nossos Patrocinadores
         </h1>
-        <p className="text-center text-gray-600 pb-8 text-2xl">
+        <p className="text-center text-gray-600 pb-10 text-xl md:text-2xl">
           Quem fortalece nossa escola e nossos sonhos 🚀
         </p>
-      </div>
 
-      <div className="flex justify-center w-full">
-        <ul className="flex flex-nowrap overflow-x-auto items-center gap-x-25 px-10 pb-10 scroll-smooth">
+        {/* Layout Flex Wrap centralizado */}
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
           
-          <li className="flex flex-col items-center justify-center min-w-[180px] p-5 bg-white rounded-2xl shadow-sm hover:scale-[1.2] transition-transform duration-300">
+          <div className="flex flex-col items-center justify-center w-40 md:w-60 p-6 bg-white rounded-2xl shadow-sm hover:scale-110 transition-transform duration-300">
             <img 
               src={logo_panambi} 
               alt="Panambi" 
-              className="h-35 w-auto "
+              className="w-full h-auto object-contain"
             />
-          </li>
+          </div>
 
-          <li className="flex flex-col items-center justify-center min-w-[180px] p-5 bg-white rounded-2xl shadow-sm hover:scale-[1.2] transition-transform duration-300">
+          <div className="flex flex-col items-center justify-center w-40 md:w-60 p-6 bg-white rounded-2xl shadow-sm hover:scale-110 transition-transform duration-300">
             <img 
               src={logo_saur} 
               alt="Saur" 
-              className="h-35 w-auto "
+              className="w-full h-auto object-contain"
             />
-          </li>
+          </div>
 
-        </ul>
+        </div>
       </div>
     </section>
   );

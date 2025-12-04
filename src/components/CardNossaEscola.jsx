@@ -10,14 +10,17 @@ const CardNossaEscola = ({ icon, color, title, description, button }) => {
   return (
     <div
       className="
-  flex flex-col justify-between items-center 
-  bg-white rounded-2xl shadow-md 
-  transition-transform duration-300 hover:shadow-xl hover:-translate-y-1
-  w-full max-w-sm md:w-1/4 
-  p-6
-  min-h-[26rem] md:min-h-[30rem]
-"
+        flex flex-col justify-between items-center 
+        bg-white rounded-2xl shadow-md 
+        transition-transform duration-300 hover:shadow-xl hover:-translate-y-1
+        w-full h-full  
+        p-6
+        min-h-[26rem]
+      "
     >
+      {/* Removi: max-w-sm e md:w-1/4 */}
+      {/* Adicionei: h-full para garantir altura igual */}
+      
       <div className="flex flex-col items-center">
         <div className="flex items-center justify-center rounded-full mb-5 pt-6">
           {styledIcon}
