@@ -8,3 +8,16 @@
   --font-Poppins: "Poppins", sans-serif;
   --font-RobotoSlab: "Roboto Slab", sans-serif;
 }
+
+
+.floating-dots {
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { background-position: 0px 0px; }
+  50% { background-position: 10px 10px; }
+  100% { background-position: 0px 0px; }
+}
