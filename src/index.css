@@ -1,14 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 @import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
 
 @theme {
   --font-comicNeue: "Comic Neue", sans-serif;
   --font-Poppins: "Poppins", sans-serif;
   --font-RobotoSlab: "Roboto Slab", sans-serif;
 }
-
 
 .floating-dots {
   background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
@@ -17,7 +20,13 @@
 }
 
 @keyframes float {
-  0% { background-position: 0px 0px; }
-  50% { background-position: 10px 10px; }
-  100% { background-position: 0px 0px; }
+  0% {
+    background-position: 0px 0px;
+  }
+  50% {
+    background-position: 10px 10px;
+  }
+  100% {
+    background-position: 0px 0px;
+  }
 }

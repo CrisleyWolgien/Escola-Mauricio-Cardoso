@@ -1,15 +1,15 @@
-function CardJogos({ titulo, descricao, serie, categoria, imagem, link }) {
+function CardJogos({ titulo, descricao, serie, categoria, imagem, link, cardBgClass }) {
   return (
     <div
-      className="
+      className={`
         w-full
-        bg-white rounded-3xl shadow-md
+        ${cardBgClass || "bg-white"} rounded-3xl shadow-md
         hover:shadow-xl hover:-translate-y-1
         transition-all duration-300
         p-5
         flex flex-col
         h-full
-      "
+      `}
     >
       {/* Imagem com tamanho fixo */}
       <div className="flex justify-center">

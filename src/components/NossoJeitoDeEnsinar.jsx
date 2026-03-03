@@ -25,8 +25,8 @@ const valuesData = [
 const NossoJeitoDeEnsinar = () => {
   return (
     // Padding ajustado: py-12 no mobile, py-24 no desktop
-    <section className="bg-white py-12 md:py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-transparent py-12 md:py-24">
+      <div className="mx-auto max-w-7xl px-8 py-12 bg-amber-100/80 border-4 border-amber-200 backdrop-blur-sm rounded-[3rem] shadow-xl">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-RobotoSlab text-center mb-10 md:mb-15">
           Nosso Jeito de Educar
         </h2>

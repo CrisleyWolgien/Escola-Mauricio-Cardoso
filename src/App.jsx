@@ -1,29 +1,28 @@
-import { useState } from "react";
-import "./App.css";
-import Header from "./components/Header";
-import Banner from "./components/Banner";
-import NossoJeitoDeEnsinar from "./components/NossoJeitoDeEnsinar";
-import ExploreNossaEscola from "./components/ExploreNossaEscola";
-import MomentosQueMarcam from "./components/MomentosQueMarcam";
-import Jogos from "./components/Jogos";
-import Footer from "./components/Footer";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import ScrollToTop from "./components/ScrollToTop";
+import Home from "./pages/Home";
+import Sobre from "./pages/Sobre";
+import NoticiasPage from "./pages/NoticiasPage";
+import CalendarioPage from "./pages/CalendarioPage";
+import JogosPage from "./pages/JogosPage";
+import MomentosPage from "./pages/MomentosPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <Header/>
-        <Banner/>
-        <NossoJeitoDeEnsinar/>
-        <ExploreNossaEscola/>
-        <MomentosQueMarcam/>
-        <Jogos/>
-        <Footer/>
-      </div>
-    </>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="sobre" element={<Sobre />} />
+          <Route path="noticias" element={<NoticiasPage />} />
+          <Route path="calendario" element={<CalendarioPage />} />
+          <Route path="jogos" element={<JogosPage />} />
+          <Route path="momentos" element={<MomentosPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
