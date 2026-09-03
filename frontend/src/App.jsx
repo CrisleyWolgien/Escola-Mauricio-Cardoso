@@ -10,6 +10,7 @@ import MomentosPage from "./pages/MomentosPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAnnouncements from "./pages/AdminAnnouncements";
+import AdminEvents from "./pages/AdminEvents";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/painel" element={<AdminDashboard />} />
         <Route path="/admin/avisos" element={<AdminAnnouncements />} />
+        <Route path="/admin/calendario" element={<AdminEvents />} />
       </Routes>
     </BrowserRouter>
   );
