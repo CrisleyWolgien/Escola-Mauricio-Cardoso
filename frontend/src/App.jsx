@@ -13,6 +13,7 @@ import AdminAnnouncements from "./pages/AdminAnnouncements";
 import AdminEvents from "./pages/AdminEvents";
 import AdminGallery from "./pages/AdminGallery";
 import AdminGames from "./pages/AdminGames";
+import AdminSettings from "./pages/AdminSettings";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin/calendario" element={<AdminEvents />} />
         <Route path="/admin/galeria" element={<AdminGallery />} />
         <Route path="/admin/jogos" element={<AdminGames />} />
+        <Route path="/admin/configuracoes" element={<AdminSettings />} />
       </Routes>
     </BrowserRouter>
   );
