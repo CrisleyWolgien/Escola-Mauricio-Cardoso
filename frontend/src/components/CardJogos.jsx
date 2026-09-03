@@ -1,3 +1,5 @@
+import { Gamepad2 } from "lucide-react";
+
 function CardJogos({ titulo, descricao, serie, categoria, imagem, link, cardBgClass }) {
   return (
     <div
@@ -13,10 +15,7 @@ function CardJogos({ titulo, descricao, serie, categoria, imagem, link, cardBgCl
     >
       {/* Imagem com tamanho fixo */}
       <div className="flex justify-center">
-        <img
-          src={imagem}
-          className="w-[80%] h-[180px] object-cover rounded-xl"
-        />
+        {imagem ? <img src={imagem} alt="" className="h-[180px] w-[80%] rounded-xl object-cover" /> : <div className="flex h-[180px] w-[80%] items-center justify-center rounded-xl bg-white/65 text-indigo-600"><Gamepad2 size={56} aria-hidden="true" /></div>}
       </div>
 
       {/* Conteúdo */}
@@ -44,6 +43,7 @@ function CardJogos({ titulo, descricao, serie, categoria, imagem, link, cardBgCl
           <a
             href={link}
             target="_blank"
+            rel="noreferrer"
             className="
               bg-blue-600 text-white px-6 py-2
               rounded-xl font-semibold text-lg

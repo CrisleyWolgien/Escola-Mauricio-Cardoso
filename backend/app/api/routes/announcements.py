@@ -31,6 +31,18 @@ def list_all_announcements(
     return service.list_all(db)
 
 
+@router.get("/{announcement_id}", response_model=AnnouncementRead)
+def get_public_announcement(
+    announcement_id: int,
+    db: Session = Depends(get_db),
+    service: AnnouncementService = Depends(get_announcement_service),
+) -> AnnouncementRead:
+    try:
+        return service.get_public(db, announcement_id)
+    except AnnouncementNotFoundError as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Notícia não encontrada") from error
+
+
 @router.post("/admin", response_model=AnnouncementRead, status_code=status.HTTP_201_CREATED)
 def create_announcement(
     payload: AnnouncementCreate,

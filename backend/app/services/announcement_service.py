@@ -18,6 +18,12 @@ class AnnouncementService:
     def list_public(self, db: Session) -> list[Announcement]:
         return self.repository.list_public(db)
 
+    def get_public(self, db: Session, announcement_id: int) -> Announcement:
+        announcement = self.repository.get_public_by_id(db, announcement_id)
+        if announcement is None:
+            raise AnnouncementNotFoundError
+        return announcement
+
     def list_all(self, db: Session) -> list[Announcement]:
         return self.repository.list_all(db)
 

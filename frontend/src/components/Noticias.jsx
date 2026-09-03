@@ -1,6 +1,7 @@
 import { Calendar, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { publicApi } from "../lib/api";
 
 function Noticias() {
@@ -34,19 +35,20 @@ function Noticias() {
             transition={{ type: "spring", stiffness: 100, delay: index * 0.15 }}
           >
             {/* Imagem de Capa */}
-            <div className="w-full h-48 overflow-hidden relative">
-              <img 
-                src={item.cover_image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"}
-                alt={item.title} 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
-              <span className="absolute bottom-4 left-4 rounded-full bg-blue-100 px-4 py-1 text-sm font-bold tracking-wide text-blue-800 shadow-md">
-                {item.category}
-              </span>
-            </div>
+            <Link to={`/noticias/${item.id}`} className="flex h-full flex-col" aria-label={`Ler notícia: ${item.title}`}>
+              <div className="w-full h-48 overflow-hidden relative bg-blue-100">
+                <img
+                  src={item.cover_image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"}
+                  alt=""
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
+                <span className="absolute bottom-4 left-4 rounded-full bg-blue-100 px-4 py-1 text-sm font-bold tracking-wide text-blue-800 shadow-md">
+                  {item.category}
+                </span>
+              </div>
 
-            <div className="p-6 flex flex-col grow">
+              <div className="p-6 flex flex-col grow">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center text-gray-400 text-sm font-bold uppercase tracking-wider">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -66,23 +68,14 @@ function Noticias() {
                 Ler Notícia Completa
                 <ChevronRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-2" />
               </div>
-            </div>
+              </div>
+            </Link>
           </motion.div>
         ))}
       </div>
       {status === "loading" && <p className="mt-8 text-center font-bold text-gray-500">Carregando avisos...</p>}
       {status === "error" && <p className="mt-8 text-center font-bold text-rose-600">Não foi possível carregar os avisos agora.</p>}
       {status === "ready" && !newsList.length && <p className="mt-8 text-center font-bold text-gray-500">Ainda não há avisos publicados.</p>}
-      
-      <motion.div 
-        className="flex justify-center mt-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <button className="px-8 py-4 rounded-full border-2 border-gray-200 text-gray-600 font-bold hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm bg-white active:scale-95">
-          Carregar Notícias Antigas
-        </button>
-      </motion.div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Sobre from "./pages/Sobre";
 import NoticiasPage from "./pages/NoticiasPage";
+import NoticiaDetalhePage from "./pages/NoticiaDetalhePage";
 import CalendarioPage from "./pages/CalendarioPage";
 import JogosPage from "./pages/JogosPage";
 import MomentosPage from "./pages/MomentosPage";
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="sobre" element={<Sobre />} />
           <Route path="noticias" element={<NoticiasPage />} />
+          <Route path="noticias/:announcementId" element={<NoticiaDetalhePage />} />
           <Route path="calendario" element={<CalendarioPage />} />
           <Route path="jogos" element={<JogosPage />} />
           <Route path="momentos" element={<MomentosPage />} />

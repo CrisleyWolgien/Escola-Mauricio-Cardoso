@@ -16,6 +16,13 @@ class AnnouncementRepository:
         )
         return list(db.scalars(statement))
 
+    def get_public_by_id(self, db: Session, announcement_id: int) -> Announcement | None:
+        statement = select(Announcement).where(
+            Announcement.id == announcement_id,
+            Announcement.status == PublicationStatus.PUBLISHED,
+        )
+        return db.scalar(statement)
+
     def list_all(self, db: Session) -> list[Announcement]:
         return list(db.scalars(select(Announcement).order_by(Announcement.created_at.desc(), Announcement.id.desc())))
 

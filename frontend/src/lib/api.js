@@ -15,8 +15,10 @@ async function request(path, { signal } = {}) {
 
 export const publicApi = {
   announcements: (options) => request("/announcements", options),
+  announcement: (id, options) => request(`/announcements/${id}`, options),
   events: (options) => request("/events", options),
   albums: (options) => request("/gallery/albums", options),
+  photos: (albumId, options) => request(`/gallery/albums/${albumId}/photos`, options),
   games: (options) => request("/games", options),
   settings: (options) => request("/settings", options),
 };

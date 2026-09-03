@@ -1,92 +1,35 @@
 import { motion } from "framer-motion";
+import { Gamepad2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardJogos from "./CardJogos";
+import { publicApi } from "../lib/api";
+
+const cardColors = ["bg-purple-100", "bg-cyan-100", "bg-amber-100", "bg-emerald-100"];
 
 function Jogos({ hideTitle = false, hideButton = false }) {
+  const [games, setGames] = useState([]);
+  const [state, setState] = useState("loading");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    publicApi.games({ signal: controller.signal })
+      .then((items) => { setGames(items); setState("ready"); })
+      .catch((error) => { if (error.name !== "AbortError") setState("error"); });
+    return () => controller.abort();
+  }, []);
+
   return (
-    <section className={`relative bg-transparent py-12 md:py-24 ${hideTitle ? 'pt-8' : ''}`}>
-      <div className="mx-auto max-w-7xl px-4 md:px-8 py-12 bg-indigo-100/80 border-4 border-indigo-200 backdrop-blur-sm rounded-[3rem] shadow-xl">
-        {!hideTitle && (
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-RobotoSlab text-center mb-10">
-            Jogos Educativos
-          </h2>
-        )}
-
-        {/* GRID COM ANIMAÇÃO */}
-        <motion.div
-          className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            xl:grid-cols-4
-            gap-10
-            px-4 md:px-10
-          "
-          initial={{ opacity: 0, y: 40 }}
-          animate={hideTitle ? { opacity: 1, y: 0 } : undefined}
-          whileInView={!hideTitle ? { opacity: 1, y: 0 } : undefined}
-          viewport={!hideTitle ? { once: true } : undefined}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          {/* CARD 01 */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={hideTitle ? { opacity: 1, scale: 1 } : undefined}
-            whileInView={!hideTitle ? { opacity: 1, scale: 1 } : undefined}
-            viewport={!hideTitle ? { once: true } : undefined}
-            transition={{ duration: 0.4, delay: 0.1, type: "spring" }}
-          >
-            <CardJogos
-              titulo="Jogo 01"
-              descricao="Descrição do jogo Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              Tempora sit natus cum esse quas modi, enim obcaecati corrupti officia autem corporis."
-              serie="1 ano"
-              categoria="Matemática"
-              imagem="https://ik.imagekit.io/1yjzzwotx/imagens%20jogos%20mauricio%20cardoso/IMG%20JOGO%20TESTE"
-              link="https://google.com"
-              cardBgClass="bg-purple-100"
-            />
-          </motion.div>
-
-          {/* CARD 02 */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={hideTitle ? { opacity: 1, scale: 1 } : undefined}
-            whileInView={!hideTitle ? { opacity: 1, scale: 1 } : undefined}
-            viewport={!hideTitle ? { once: true } : undefined}
-            transition={{ duration: 0.4, delay: 0.25, type: "spring" }}
-          >
-            <CardJogos
-              titulo="Jogo 02"
-              descricao="Descrição do jogo Lorem ipsum dolor sit amet consectetur adipisicing elit."
-              serie="1 ano"
-              categoria="Matemática"
-              imagem="https://ik.imagekit.io/1yjzzwotx/imagens%20jogos%20mauricio%20cardoso/IMG%20JOGO%20TESTE"
-              link="https://google.com"
-              cardBgClass="bg-cyan-100"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* BOTÃO VER MAIS */}
-        {!hideButton && (
-          <div className="flex justify-center mt-12 mb-4">
-            <Link
-              to="/jogos"
-              className="
-                inline-block
-                bg-blue-600 text-white
-                px-8 py-3
-                rounded-xl text-lg font-semibold
-                hover:bg-blue-700 hover:scale-105
-                transition-all duration-300 shadow-md
-              "
-            >
-              Ver mais jogos
-            </Link>
-          </div>
-        )}
+    <section className={`relative bg-transparent py-12 md:py-24 ${hideTitle ? "pt-8" : ""}`}>
+      <div className="mx-auto max-w-7xl rounded-[3rem] border-4 border-indigo-200 bg-indigo-100/80 px-4 py-12 shadow-xl backdrop-blur-sm md:px-8">
+        {!hideTitle && <h2 className="mb-10 text-center font-RobotoSlab text-3xl font-bold text-gray-900 md:text-5xl">Jogos Educativos</h2>}
+        {state === "loading" && <p className="py-14 text-center font-bold text-gray-500">Carregando jogos...</p>}
+        {state === "error" && <p className="py-14 text-center font-bold text-rose-700">Não foi possível carregar os jogos agora.</p>}
+        {state === "ready" && !games.length && <div className="mx-auto flex max-w-lg flex-col items-center rounded-3xl border-2 border-dashed border-indigo-300 bg-white/70 px-6 py-12 text-center"><Gamepad2 className="mb-3 text-indigo-600" size={32} /><p className="font-RobotoSlab text-xl font-black text-gray-800">Novos jogos em breve</p><p className="mt-2 text-sm text-gray-600">A direção selecionará jogos educativos para as turmas.</p></div>}
+        {!!games.length && <div className="grid grid-cols-1 gap-8 px-1 sm:grid-cols-2 md:px-8 lg:grid-cols-3 xl:grid-cols-4">
+          {games.map((game, index) => <motion.div key={game.id} initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: Math.min(index * 0.08, 0.5), type: "spring" }}><CardJogos titulo={game.title} descricao={game.description} serie={game.grade_from === game.grade_to ? `${game.grade_from}º ano` : `${game.grade_from}º ao ${game.grade_to}º ano`} categoria={game.category} imagem={game.image_url} link={game.game_url} cardBgClass={cardColors[index % cardColors.length]} /></motion.div>)}
+        </div>}
+        {!hideButton && <div className="mb-4 mt-12 flex justify-center"><Link to="/jogos" className="inline-block rounded-xl bg-blue-600 px-8 py-3 text-lg font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-blue-700">Ver mais jogos</Link></div>}
       </div>
     </section>
   );
