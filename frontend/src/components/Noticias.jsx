@@ -4,45 +4,6 @@ import { useEffect, useState } from "react";
 import { publicApi } from "../lib/api";
 
 function Noticias() {
-  const fallbackNews = [
-    {
-      id: 1,
-      title: "Semana da Criança: Confira a programação completa",
-      date: "05 Out 2026",
-      summary: "Preparamos uma semana cheia de surpresas, gincanas e muita diversão. Saiba quais serão as atividades de cada dia.",
-      badge: "Eventos",
-      color: "bg-blue-100 text-blue-800",
-      image: "https://images.unsplash.com/photo-1544212720-6d338f0fa04c?q=80&w=2069&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Reunião de Pais e Mestres do 2º Trimestre",
-      date: "28 Set 2026",
-      summary: "Avisamos a todos os responsáveis que nossa reunião ocorrerá na próxima quinta-feira no auditório principal.",
-      badge: "Avisos",
-      color: "bg-orange-100 text-orange-800",
-      image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      title: "Feira de Ciências bate recorde de projetos inscritos",
-      date: "15 Set 2026",
-      summary: "Nossos pequenos cientistas surpreenderam a todos com experimentos incríveis de robótica e biologia ambiental.",
-      badge: "Projetos",
-      color: "bg-purple-100 text-purple-800",
-      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Abertas as matrículas para as turmas de robótica",
-      date: "01 Set 2026",
-      summary: "Garanta a vaga do seu filho nas nossas novas atividades extracurriculares no laboratório de tecnologia.",
-      badge: "Matrículas",
-      color: "bg-green-100 text-green-800",
-      image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=2073&auto=format&fit=crop"
-    }
-  ];
-
   const [newsList, setNewsList] = useState([]);
   const [status, setStatus] = useState("loading");
   useEffect(() => {
@@ -92,7 +53,7 @@ function Noticias() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
-              <span className={`absolute bottom-4 left-4 px-4 py-1 rounded-full text-sm font-bold tracking-wide shadow-md ${item.color}`}>
+              <span className="absolute bottom-4 left-4 rounded-full bg-blue-100 px-4 py-1 text-sm font-bold tracking-wide text-blue-800 shadow-md">
                 {item.category}
               </span>
             </div>
@@ -110,7 +71,7 @@ function Noticias() {
               </h3>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-6 font-comicNeue line-clamp-3">
-                {item.summary}
+                {item.content}
               </p>
               
               <div className="mt-auto pt-4 border-t border-gray-100 flex items-center text-blue-600 font-bold group-hover:text-blue-800">
