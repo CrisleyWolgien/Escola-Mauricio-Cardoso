@@ -7,6 +7,8 @@ import NoticiasPage from "./pages/NoticiasPage";
 import CalendarioPage from "./pages/CalendarioPage";
 import JogosPage from "./pages/JogosPage";
 import MomentosPage from "./pages/MomentosPage";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="jogos" element={<JogosPage />} />
           <Route path="momentos" element={<MomentosPage />} />
         </Route>
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/painel" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );
