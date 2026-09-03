@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KeyRound, LockKeyhole, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,8 +8,12 @@ export default function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => sessionStorage.getItem("emef_admin_login_notice") || "");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    sessionStorage.removeItem("emef_admin_login_notice");
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
