@@ -9,6 +9,7 @@ import JogosPage from "./pages/JogosPage";
 import MomentosPage from "./pages/MomentosPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminAnnouncements from "./pages/AdminAnnouncements";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/painel" element={<AdminDashboard />} />
+        <Route path="/admin/avisos" element={<AdminAnnouncements />} />
       </Routes>
     </BrowserRouter>
   );
