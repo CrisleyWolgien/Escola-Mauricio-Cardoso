@@ -24,26 +24,14 @@ function Noticias() {
         </div>
       </div>
 
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.15 }
-          }
-        }}
-      >
-        {newsList.map((item) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {newsList.map((item, index) => (
           <motion.div 
             key={item.id} 
             className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col group cursor-pointer hover:-translate-y-2"
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
-            }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 100, delay: index * 0.15 }}
           >
             {/* Imagem de Capa */}
             <div className="w-full h-48 overflow-hidden relative">
@@ -81,7 +69,7 @@ function Noticias() {
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
       {status === "loading" && <p className="mt-8 text-center font-bold text-gray-500">Carregando avisos...</p>}
       {status === "error" && <p className="mt-8 text-center font-bold text-rose-600">Não foi possível carregar os avisos agora.</p>}
       {status === "ready" && !newsList.length && <p className="mt-8 text-center font-bold text-gray-500">Ainda não há avisos publicados.</p>}
