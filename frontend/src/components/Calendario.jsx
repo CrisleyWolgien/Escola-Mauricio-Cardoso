@@ -1,8 +1,10 @@
 import { Clock, MapPin, Calendar as CalIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { publicApi } from "../lib/api";
 
 function Calendario() {
-  const eventsList = [
+  const fallbackEvents = [
     {
       id: 1,
       day: "12",
@@ -40,6 +42,20 @@ function Calendario() {
       type: "Evento Cultural"
     }
   ];
+
+  const [eventsList, setEventsList] = useState([]);
+  const [status, setStatus] = useState("loading");
+  useEffect(() => {
+    const controller = new AbortController();
+    publicApi.events({ signal: controller.signal })
+      .then((events) => setEventsList(events.map((event) => {
+        const date = new Date(event.starts_at);
+        return { ...event, day: String(date.getDate()).padStart(2, "0"), month: date.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "").toUpperCase(), time: date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }), type: event.event_type };
+      })))
+      .catch((error) => { if (error.name !== "AbortError") setStatus("error"); })
+      .finally(() => setStatus((current) => current === "error" ? current : "ready"));
+    return () => controller.abort();
+  }, []);
 
   return (
     <div className="flex flex-col grow w-full">
@@ -111,6 +127,9 @@ function Calendario() {
           </motion.div>
         ))}
       </motion.div>
+      {status === "loading" && <p className="mt-8 text-center font-bold text-gray-500">Carregando calendário...</p>}
+      {status === "error" && <p className="mt-8 text-center font-bold text-rose-600">Não foi possível carregar o calendário agora.</p>}
+      {status === "ready" && !eventsList.length && <p className="mt-8 text-center font-bold text-gray-500">Ainda não há eventos publicados.</p>}
     </div>
   );
 }

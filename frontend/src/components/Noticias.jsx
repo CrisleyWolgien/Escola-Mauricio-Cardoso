@@ -1,8 +1,10 @@
 import { Calendar, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { publicApi } from "../lib/api";
 
 function Noticias() {
-  const newsList = [
+  const fallbackNews = [
     {
       id: 1,
       title: "Semana da Criança: Confira a programação completa",
@@ -41,6 +43,17 @@ function Noticias() {
     }
   ];
 
+  const [newsList, setNewsList] = useState([]);
+  const [status, setStatus] = useState("loading");
+  useEffect(() => {
+    const controller = new AbortController();
+    publicApi.announcements({ signal: controller.signal })
+      .then(setNewsList)
+      .catch((error) => { if (error.name !== "AbortError") setStatus("error"); })
+      .finally(() => setStatus((current) => current === "error" ? current : "ready"));
+    return () => controller.abort();
+  }, []);
+
   return (
     <div className="flex flex-col grow w-full">
       <div className="flex justify-between items-end mb-8 border-b-2 border-gray-100 pb-4">
@@ -74,13 +87,13 @@ function Noticias() {
             {/* Imagem de Capa */}
             <div className="w-full h-48 overflow-hidden relative">
               <img 
-                src={item.image} 
+                src={item.cover_image_url || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"}
                 alt={item.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
               <span className={`absolute bottom-4 left-4 px-4 py-1 rounded-full text-sm font-bold tracking-wide shadow-md ${item.color}`}>
-                {item.badge}
+                {item.category}
               </span>
             </div>
 
@@ -88,7 +101,7 @@ function Noticias() {
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center text-gray-400 text-sm font-bold uppercase tracking-wider">
                   <Calendar className="w-4 h-4 mr-2" />
-                  {item.date}
+                  {item.published_at ? new Date(item.published_at).toLocaleDateString("pt-BR") : "Em breve"}
                 </div>
               </div>
               
@@ -108,6 +121,9 @@ function Noticias() {
           </motion.div>
         ))}
       </motion.div>
+      {status === "loading" && <p className="mt-8 text-center font-bold text-gray-500">Carregando avisos...</p>}
+      {status === "error" && <p className="mt-8 text-center font-bold text-rose-600">Não foi possível carregar os avisos agora.</p>}
+      {status === "ready" && !newsList.length && <p className="mt-8 text-center font-bold text-gray-500">Ainda não há avisos publicados.</p>}
       
       <motion.div 
         className="flex justify-center mt-12"
