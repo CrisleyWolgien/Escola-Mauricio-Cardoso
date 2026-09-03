@@ -7,6 +7,7 @@ from app.models.announcement import PublicationStatus
 
 class AnnouncementCreate(BaseModel):
     title: str = Field(min_length=4, max_length=160)
+    summary: str | None = Field(default=None, min_length=4, max_length=280)
     content: str = Field(min_length=10, max_length=10_000)
     category: str = Field(default="Geral", min_length=2, max_length=60)
     cover_image_url: HttpUrl | None = None
@@ -15,6 +16,7 @@ class AnnouncementCreate(BaseModel):
 
 class AnnouncementUpdate(BaseModel):
     title: str | None = Field(default=None, min_length=4, max_length=160)
+    summary: str | None = Field(default=None, min_length=4, max_length=280)
     content: str | None = Field(default=None, min_length=10, max_length=10_000)
     category: str | None = Field(default=None, min_length=2, max_length=60)
     cover_image_url: HttpUrl | None = None
@@ -26,6 +28,7 @@ class AnnouncementRead(BaseModel):
 
     id: int
     title: str
+    summary: str | None
     content: str
     category: str
     cover_image_url: str | None

@@ -61,6 +61,7 @@ def test_only_published_announcements_are_visible_to_visitors(tmp_path) -> None:
                 headers={"Authorization": f"Bearer {token}"},
                 json={
                     "title": "Reunião de famílias",
+                    "summary": "Encontro com as famílias na próxima quarta-feira.",
                     "content": "A reunião será realizada na próxima quarta-feira, às 19 horas.",
                     "category": "Comunicado",
                     "status": "published",
@@ -72,6 +73,7 @@ def test_only_published_announcements_are_visible_to_visitors(tmp_path) -> None:
             assert public_response.status_code == 200
             public_announcements = public_response.json()
             assert [announcement["title"] for announcement in public_announcements] == ["Reunião de famílias"]
+            assert public_announcements[0]["summary"] == "Encontro com as famílias na próxima quarta-feira."
     finally:
         app.dependency_overrides.clear()
         Base.metadata.drop_all(bind=engine)

@@ -31,6 +31,7 @@ class AnnouncementService:
         published_at = datetime.now(UTC) if payload.status == PublicationStatus.PUBLISHED else None
         announcement = Announcement(
             title=payload.title,
+            summary=payload.summary,
             content=payload.content,
             category=payload.category,
             cover_image_url=str(payload.cover_image_url) if payload.cover_image_url else None,

@@ -61,7 +61,7 @@ function Noticias() {
               </h3>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-6 font-comicNeue line-clamp-3">
-                {item.content}
+                {item.summary || item.content}
               </p>
               
               <div className="mt-auto pt-4 border-t border-gray-100 flex items-center text-blue-600 font-bold group-hover:text-blue-800">

@@ -17,6 +17,7 @@ class Announcement(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(160))
+    summary: Mapped[str | None] = mapped_column(String(280), nullable=True)
     content: Mapped[str] = mapped_column(Text)
     category: Mapped[str] = mapped_column(String(60), default="Geral")
     cover_image_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
