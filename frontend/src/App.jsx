@@ -11,6 +11,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAnnouncements from "./pages/AdminAnnouncements";
 import AdminEvents from "./pages/AdminEvents";
+import AdminGallery from "./pages/AdminGallery";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/admin/painel" element={<AdminDashboard />} />
         <Route path="/admin/avisos" element={<AdminAnnouncements />} />
         <Route path="/admin/calendario" element={<AdminEvents />} />
+        <Route path="/admin/galeria" element={<AdminGallery />} />
       </Routes>
     </BrowserRouter>
   );
