@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = Field(default=15, ge=5, le=60)
     refresh_token_expire_days: int = Field(default=7, ge=1, le=30)
     allowed_origins: list[AnyHttpUrl] = []
+    # Usadas apenas para criar a primeira conta da direção em uma base vazia.
+    # Remova estas variáveis do provedor após o primeiro deploy bem-sucedido.
+    initial_admin_name: str = "Direção da escola"
+    initial_admin_email: str | None = None
+    initial_admin_password: str | None = Field(default=None, min_length=12)
 
 
 @lru_cache
