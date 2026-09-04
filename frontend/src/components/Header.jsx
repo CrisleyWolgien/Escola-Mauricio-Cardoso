@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, BookOpen, Newspaper, CalendarDays, Gamepad2, Camera } from "lucide-react";
+import { Menu, X, BookOpen, Newspaper, CalendarDays, Gamepad2, Camera, Sparkles } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,6 +10,7 @@ function Header() {
   const navLinks = [
     { name: "Sobre Nós", path: "/sobre", icon: <BookOpen className="w-5 h-5" />, color: "hover:bg-orange-100 hover:text-orange-600", activeTheme: "bg-orange-100 text-orange-600 border-b-4 border-orange-500" },
     { name: "Notícias", path: "/noticias", icon: <Newspaper className="w-5 h-5" />, color: "hover:bg-purple-100 hover:text-purple-600", activeTheme: "bg-purple-100 text-purple-600 border-b-4 border-purple-500" },
+    { name: "Projetos", path: "/posts", icon: <Sparkles className="w-5 h-5" />, color: "hover:bg-violet-100 hover:text-violet-600", activeTheme: "bg-violet-100 text-violet-600 border-b-4 border-violet-500" },
     { name: "Calendário", path: "/calendario", icon: <CalendarDays className="w-5 h-5" />, color: "hover:bg-emerald-100 hover:text-emerald-600", activeTheme: "bg-emerald-100 text-emerald-600 border-b-4 border-emerald-500" },
     { name: "Jogos", path: "/jogos", icon: <Gamepad2 className="w-5 h-5" />, color: "hover:bg-blue-100 hover:text-blue-600", activeTheme: "bg-blue-100 text-blue-600 border-b-4 border-blue-500" },
     { name: "Galeria", path: "/momentos", icon: <Camera className="w-5 h-5" />, color: "hover:bg-pink-100 hover:text-pink-600", activeTheme: "bg-pink-100 text-pink-600 border-b-4 border-pink-500" },
