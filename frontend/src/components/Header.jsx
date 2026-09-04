@@ -29,10 +29,9 @@ function Header() {
             <span className="text-2xl md:text-3xl">🎒</span>
           </motion.div>
           <div className="flex flex-col justify-center ml-1">
-            <div className="flex items-center">
-               <span className="text-[10px] font-black text-white bg-pink-500 px-2 py-0.5 rounded-full uppercase tracking-widest shadow-sm transform -rotate-2">Escola</span>
-               <span className="text-[10px] font-black text-white bg-emerald-500 px-2 py-0.5 rounded-full uppercase tracking-widest shadow-sm ml-1 transform rotate-2">Infantil</span>
-            </div>
+            <span className="w-fit rounded-full bg-emerald-500 px-2 py-0.5 text-[8px] font-black uppercase tracking-[0.12em] text-white shadow-sm md:text-[10px]">
+              Escola Municipal de Ensino Fundamental
+            </span>
             <span className="text-2xl md:text-[32px] font-black font-comicNeue flex items-center gap-2 mt-0.5 group-hover:scale-105 transition-transform origin-left drop-shadow-sm">
               <span className="text-blue-600">Maurício</span>
               <span className="text-orange-500">Cardoso</span>
