@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { publicApi } from "../lib/api";
 
+function formatIcsDate(value) {
+  return new Date(value).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+}
+
+function escapeIcs(value = "") {
+  return String(value).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+}
+
 function Calendario() {
   const [eventsList, setEventsList] = useState([]);
   const [status, setStatus] = useState("loading");
@@ -17,6 +25,36 @@ function Calendario() {
       .finally(() => setStatus((current) => current === "error" ? current : "ready"));
     return () => controller.abort();
   }, []);
+
+  function addToCalendar(event) {
+    const start = new Date(event.starts_at);
+    const end = event.ends_at ? new Date(event.ends_at) : new Date(start.getTime() + 60 * 60 * 1000);
+    const calendarFile = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//EMEF Maurício Cardoso//Calendário Escolar//PT-BR",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      `UID:emef-event-${event.id}@mauriciocardoso`,
+      `DTSTAMP:${formatIcsDate(new Date())}`,
+      `DTSTART:${formatIcsDate(start)}`,
+      `DTEND:${formatIcsDate(end)}`,
+      `SUMMARY:${escapeIcs(event.title)}`,
+      `DESCRIPTION:${escapeIcs(event.description || "Evento da EMEF Maurício Cardoso.")}`,
+      `LOCATION:${escapeIcs(event.location || "EMEF Maurício Cardoso")}`,
+      "END:VEVENT",
+      "END:VCALENDAR",
+      "",
+    ].join("\r\n");
+    const url = URL.createObjectURL(new Blob([calendarFile], { type: "text/calendar;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${event.title.toLowerCase().replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "evento-escolar"}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <div className="flex flex-col grow w-full">
@@ -69,7 +107,7 @@ function Calendario() {
 
             {/* Action button */}
             <div className="w-full md:w-auto shrink-0 mt-4 md:mt-0">
-              <button className="w-full md:w-auto px-6 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold border border-gray-200 hover:border-transparent hover:bg-emerald-600 hover:text-white transition-all shadow-sm active:scale-95 flex items-center justify-center">
+              <button type="button" onClick={() => addToCalendar(event)} className="w-full md:w-auto px-6 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold border border-gray-200 hover:border-transparent hover:bg-emerald-600 hover:text-white transition-all shadow-sm active:scale-95 flex items-center justify-center">
                 Lembrar-me
               </button>
             </div>
