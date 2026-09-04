@@ -4,45 +4,6 @@ import { useEffect, useState } from "react";
 import { publicApi } from "../lib/api";
 
 function Calendario() {
-  const fallbackEvents = [
-    {
-      id: 1,
-      day: "12",
-      month: "OUT",
-      title: "Dia das Crianças - Gincana Especial",
-      time: "08:00 - 12:00",
-      location: "Pátio Principal",
-      type: "Festa"
-    },
-    {
-      id: 2,
-      day: "20",
-      month: "OUT",
-      title: "Conselho de Classe 3º Bimestre",
-      time: "18:30 - 20:30",
-      location: "Auditório / Salas de Aula",
-      type: "Reunião"
-    },
-    {
-      id: 3,
-      day: "02",
-      month: "NOV",
-      title: "Feriado de Finados (Sem Aula)",
-      time: "O dia todo",
-      location: "Escola Fechada",
-      type: "Feriado"
-    },
-    {
-      id: 4,
-      day: "15",
-      month: "NOV",
-      title: "Proclamação da República e Feira Cultural",
-      time: "09:00 - 16:00",
-      location: "Quadra Poliesportiva",
-      type: "Evento Cultural"
-    }
-  ];
-
   const [eventsList, setEventsList] = useState([]);
   const [status, setStatus] = useState("loading");
   useEffect(() => {
@@ -66,26 +27,14 @@ function Calendario() {
         </div>
       </div>
 
-      <motion.div 
-        className="space-y-6"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-          }
-        }}
-      >
-        {eventsList.map((event) => (
+      <div className="space-y-6">
+        {eventsList.map((event, index) => (
           <motion.div 
             key={event.id} 
             className="bg-white border-2 border-transparent hover:border-green-400 rounded-3xl p-5 md:p-6 shadow-sm hover:shadow-[0_15px_30px_rgba(0,128,0,0.1)] transition-all flex flex-col md:flex-row items-center gap-6 group cursor-default relative overflow-hidden"
-            variants={{
-              hidden: { opacity: 0, x: -30 },
-              visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 80 } }
-            }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 80, delay: index * 0.1 }}
           >
             {/* Detalhe visual charmoso */}
             <div className="absolute top-0 bottom-0 left-0 w-2 bg-linear-to-b from-green-400 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -126,7 +75,7 @@ function Calendario() {
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
       {status === "loading" && <p className="mt-8 text-center font-bold text-gray-500">Carregando calendário...</p>}
       {status === "error" && <p className="mt-8 text-center font-bold text-rose-600">Não foi possível carregar o calendário agora.</p>}
       {status === "ready" && !eventsList.length && <p className="mt-8 text-center font-bold text-gray-500">Ainda não há eventos publicados.</p>}
