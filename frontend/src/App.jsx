@@ -15,6 +15,9 @@ import AdminEvents from "./pages/AdminEvents";
 import AdminGallery from "./pages/AdminGallery";
 import AdminGames from "./pages/AdminGames";
 import AdminSettings from "./pages/AdminSettings";
+import PostsPage from "./pages/PostsPage";
+import PostDetailPage from "./pages/PostDetailPage";
+import AdminPosts from "./pages/AdminPosts";
 
 function App() {
   return (
@@ -29,6 +32,8 @@ function App() {
           <Route path="calendario" element={<CalendarioPage />} />
           <Route path="jogos" element={<JogosPage />} />
           <Route path="momentos" element={<MomentosPage />} />
+          <Route path="posts" element={<PostsPage />} />
+          <Route path="posts/:postId" element={<PostDetailPage />} />
         </Route>
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/painel" element={<AdminDashboard />} />
@@ -37,6 +42,7 @@ function App() {
         <Route path="/admin/galeria" element={<AdminGallery />} />
         <Route path="/admin/jogos" element={<AdminGames />} />
         <Route path="/admin/configuracoes" element={<AdminSettings />} />
+        <Route path="/admin/posts" element={<AdminPosts />} />
       </Routes>
     </BrowserRouter>
   );

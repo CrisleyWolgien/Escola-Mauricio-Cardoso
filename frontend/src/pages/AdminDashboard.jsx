@@ -1,8 +1,9 @@
-import { CalendarDays, ChevronRight, FileText, Gamepad2, Image, LogOut, Settings, Sparkles } from "lucide-react";
+import { BookOpen, CalendarDays, ChevronRight, FileText, Gamepad2, Image, LogOut, Settings, Sparkles } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const sections = [
   { title: "Avisos", text: "Comunicados para as famílias", icon: FileText, color: "bg-orange-100 text-orange-700", path: "/admin/avisos" },
+  { title: "Posts e projetos", text: "Histórias com várias fotos", icon: BookOpen, color: "bg-violet-100 text-violet-700", path: "/admin/posts" },
   { title: "Calendário", text: "Eventos e datas escolares", icon: CalendarDays, color: "bg-emerald-100 text-emerald-700", path: "/admin/calendario" },
   { title: "Galeria", text: "Álbuns e fotos da escola", icon: Image, color: "bg-pink-100 text-pink-700", path: "/admin/galeria" },
   { title: "Jogos", text: "Links educativos por série", icon: Gamepad2, color: "bg-indigo-100 text-indigo-700", path: "/admin/jogos" },
