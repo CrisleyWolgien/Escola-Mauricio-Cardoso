@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     initial_admin_name: str = "Direção da escola"
     initial_admin_email: str | None = None
     initial_admin_password: str | None = Field(default=None, min_length=12)
+    cloudinary_cloud_name: str | None = None
+    cloudinary_api_key: str | None = None
+    cloudinary_api_secret: str | None = None
+    cloudinary_folder: str = "emef-mauricio-cardoso"
 
 
 @lru_cache
